@@ -23,8 +23,7 @@
 
       alt - d : yabai -m space --layout $(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')
 
-
-      alt + shift - return : /Applications/Kitty.app/Contents/MacOS/kitty --working-directory ~
+      alt + shift - return : kitty --single-instance -d ~
       alt + shift - e : /Applications/Zen\ Browser.app/Contents/MacOS/zen
 
     '';

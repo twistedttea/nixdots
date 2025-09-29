@@ -28,8 +28,8 @@
           nixpkgs.config.allowUnfree = true;
           # TODO: please move this into subfiles, organize by dependencies or type when possible
           environment.systemPackages = [
-            pkgs.neovim
             pkgs.nixfmt-rfc-style
+            pkgs.nixd
             pkgs.kitty
             pkgs.libpng
             pkgs.glib
@@ -61,13 +61,11 @@
             pkgs.autoconf
             pkgs.automake
             pkgs.ncurses
-            pkgs.bash
             pkgs.bat
             pkgs.db
             pkgs.biber
             pkgs.c-ares
             pkgs.libretls
-            pkgs.catgirl
             pkgs.gcc
             pkgs.pmix
             pkgs.openmpi
@@ -124,24 +122,20 @@
             pkgs.meson
             pkgs.vapoursynth
             pkgs.yt-dlp
-            pkgs.starship
             pkgs.mpv
             pkgs.msmtp
             pkgs.mu
-            pkgs.neofetch
             pkgs.neomutt
             pkgs.tree-sitter
             pkgs.neovim
             pkgs.jdk
             pkgs.pandoc
-            pkgs.nixd
             pkgs.tree
             pkgs.pass
             pkgs.pfetch
             pkgs.eza
             pkgs.php
             pkgs.poppler
-            pkgs.nixd
             pkgs.python313Packages.pygments
             pkgs.ripgrep
             pkgs.rustup
