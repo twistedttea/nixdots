@@ -181,7 +181,7 @@
     {
       # Build darwin flake using:
       # $ sudo darwin-rebuild build --flake .#Peters-Mac
-      darwinConfigurations."Peters-Mac" = nix-darwin.lib.darwinSystem {
+      darwinConfigurations."Acerola" = nix-darwin.lib.darwinSystem {
 
         modules = [
           configuration
