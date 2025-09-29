@@ -1,3 +1,6 @@
+
+# TODO: Do I need to add a central configuration file that i import this flake into on nix-darwin?
+
 {
   description = "Current Nix declaritive configuration";
 
@@ -5,6 +8,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    # TODO: add home manager
   };
 
   outputs =
@@ -22,6 +26,7 @@
           # List packages installed in system profile. To search by name, run:
           # $ nix-env -qaP | grep wget
           nixpkgs.config.allowUnfree = true;
+          # TODO: please move this into subfiles, organize by dependencies or type when possible
           environment.systemPackages = [
             pkgs.neovim
             pkgs.nixfmt-rfc-style
@@ -146,7 +151,7 @@
             pkgs.starship
             pkgs.stow
             pkgs.swiftformat
-            pkgs.syncthing
+            # pkgs.syncthing
             pkgs.texlab
             pkgs.texliveFull
             pkgs.tmux
@@ -163,10 +168,10 @@
           nix.enable = false;
           system.primaryUser = "petergrosskurth";
 
-          environment.shells = [ pkgs.fish ];
-          # Services
+          security.pam.services.sudo_local.touchIdAuth = true;
           programs.fish.enable = true;
           users.users.petergrosskurth = {
+            # TODO: this is not setting my login shell, need to fix that
             shell = pkgs.fish;
           };
           # services.dbus.enable = true;
@@ -212,6 +217,10 @@
                 "reattach-to-user-namespace"
                 "terminal-notifier"
                 "xdg-ninja"
+                {
+                name ="syncthing";
+                start_service = true;
+                }
 
               ];
 
