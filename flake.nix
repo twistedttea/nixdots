@@ -78,7 +78,7 @@
             pkgs.coreutils
             pkgs.curl
             pkgs.dav1d
-            pkgs.emacs-macport
+            pkgs.emacs
             pkgs.desktop-file-utils
             pkgs.docker
             pkgs.docker-compose
@@ -176,7 +176,7 @@
           system.stateVersion = 6;
           nixpkgs.hostPlatform = "aarch64-darwin";
         };
-    in
+    
     {
       # Build darwin flake using:
       # $ sudo darwin-rebuild build --flake .#Peters-Mac
