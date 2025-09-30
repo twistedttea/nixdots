@@ -54,7 +54,6 @@
             pkgs.aprutil
             pkgs.aria2
             pkgs.aribb24
-            pkgs.aspell
             pkgs.dbus
             pkgs.at-spi2-core
             pkgs.autoconf
@@ -106,7 +105,10 @@
             pkgs.libheif
             pkgs.python313
             pkgs.imagemagick
-            pkgs.ispell
+            pkgs.aspell
+            pkgs.aspellDicts.en
+            pkgs.aspellDicts.en-computers
+            pkgs.aspellDicts.en-science
             pkgs.isync
             pkgs.lazygit
             pkgs.lf
