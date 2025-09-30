@@ -1,4 +1,3 @@
-
 # TODO: Do I need to add a central configuration file that i import this flake into on nix-darwin?
 
 {
@@ -168,7 +167,6 @@
             # TODO: this is not setting my login shell, need to fix that
             shell = pkgs.fish;
           };
-          # services.dbus.enable = true;
 
           # Set Git commit hash for darwin-version.
           system.configurationRevision = self.rev or self.dirtyRev or null;
@@ -176,7 +174,7 @@
           system.stateVersion = 6;
           nixpkgs.hostPlatform = "aarch64-darwin";
         };
-    
+    in
     {
       # Build darwin flake using:
       # $ sudo darwin-rebuild build --flake .#Peters-Mac
@@ -191,7 +189,6 @@
               enable = true;
 
               taps = [
-
                 "cmacrae/formulae"
                 "felixkratz/formulae"
                 "homebrew/autoupdate"
@@ -212,14 +209,11 @@
                 "terminal-notifier"
                 "xdg-ninja"
                 {
-                name ="syncthing";
-                start_service = true;
+                  name = "syncthing";
+                  start_service = true;
                 }
-
               ];
-
             };
-
           }
         ];
       };
