@@ -140,6 +140,7 @@
             pkgs.python313Packages.pygments
             pkgs.ripgrep
             pkgs.rustup
+            pkgs.ghostty
             pkgs.p7zip
             pkgs.slides
             pkgs.sphinx
