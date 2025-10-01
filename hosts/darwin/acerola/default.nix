@@ -10,7 +10,7 @@ in
     #
     # ========== Hardware ==========
     #
-    ./hardware-configuration.nix
+    # ./hardware-configuration.nix
     #inputs.hardware.nixosModules.common-cpu-amd
     #inputs.hardware.nixosModules.common-cpu-intel
     #inputs.hardware.nixosModules.common-gpu-nvidia
@@ -39,6 +39,13 @@ in
       #
       # ========== Optional Configs ==========
       #
+      ./hosts/common/optional/emacs.nix
+      ./hosts/common/optional/python.nix
+      ./hosts/common/optional/mullvad.nix
+      ./hosts/common/optional/vlc.nix
+      ./hosts/darwin/optional/yabai.nix
+      ./hosts/darwin/optional/skhd.nix
+      ./
     ])
   ];
 
@@ -46,11 +53,11 @@ in
   # ========== Host Specification ==========
   #
 
-  # hostSpec = {
-  #   hostName = "foo";
+   hostSpec = {
+     hostName = "acerola";
   #   useYubikey = lib.mkForce true;
   #   scaling = lib.mkForce "1";
-  # };
+   };
 
   # networking = {
   #   networkmanager.enable = true;
@@ -69,6 +76,5 @@ in
   #   systemd.enable = true;
   # };
 
-  #https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "24.11";
+  system.stateVersion = 6;
 }

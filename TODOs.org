@@ -1,0 +1,4 @@
+:PROPERTIES:
+:CATEGORY: .dotfiles.nix
+:END:
+* TODO: Change zsh prompt to starship                                   :nix:

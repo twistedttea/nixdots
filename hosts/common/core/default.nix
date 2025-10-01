@@ -15,9 +15,9 @@ in
 {
   imports = lib.flatten [
     inputs.home-manager.${platformModules}.home-manager
-    inputs.sops-nix.${platformModules}.sops
-    inputs.nix-index-database.${platformModules}.nix-index
-    { programs.nix-index-database.comma.enable = true; }
+    #inputs.sops-nix.${platformModules}.sops
+    #inputs.nix-index-database.${platformModules}.nix-index
+    #{ programs.nix-index-database.comma.enable = true; }
 
     (map lib.custom.relativeToRoot [
       "modules/common"
