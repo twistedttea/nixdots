@@ -215,6 +215,10 @@
                   name = "syncthing";
                   start_service = true;
                 }
+                ];
+
+                casks = [
+                "colemak-dh"
               ];
             };
           }
