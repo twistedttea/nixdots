@@ -67,7 +67,6 @@
             pkgs.gcc
             pkgs.pmix
             pkgs.openmpi
-            pkgs.cava
             pkgs.python313Packages.certifi
             pkgs.cjson
             pkgs.clisp
@@ -76,7 +75,6 @@
             pkgs.coreutils
             pkgs.curl
             pkgs.dav1d
-            pkgs.emacs
             pkgs.desktop-file-utils
             pkgs.docker
             pkgs.docker-compose
@@ -105,10 +103,7 @@
             pkgs.libheif
             pkgs.python313
             pkgs.imagemagick
-            pkgs.aspell
-            pkgs.aspellDicts.en
-            pkgs.aspellDicts.en-computers
-            pkgs.aspellDicts.en-science
+            pkgs.ispell
             pkgs.isync
             pkgs.lazygit
             pkgs.lf
@@ -197,6 +192,7 @@
                 "homebrew/autoupdate"
                 "koekeishiya/formulae"
                 "nikitabobko/tap"
+                "d12frosted/emacs-plus"
                 "romkatv/powerlevel10k"
                 "zegervdv/zathura"
 
@@ -206,6 +202,7 @@
                 "berkeley-db@5"
                 "libretls"
                 "cocoapods"
+                "emacs-plus@31"
                 "docker-completion"
                 "Gtk-mac-integration"
                 "reattach-to-user-namespace"
@@ -215,9 +212,9 @@
                   name = "syncthing";
                   start_service = true;
                 }
-                ];
+              ];
 
-                casks = [
+              casks = [
                 "colemak-dh"
               ];
             };
