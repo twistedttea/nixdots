@@ -48,6 +48,7 @@
             pkgs.notmuch
             pkgs.aerc
             pkgs.antigen
+            pkgs.glibtool
             pkgs.brotli
             pkgs.libavif
             pkgs.apr
@@ -116,7 +117,8 @@
             pkgs.nodejs
             pkgs.mermaid-cli
             pkgs.meson
-            pkgs.vapoursynth
+            # pkgs.vapoursynth
+            pkgs.libtool
             pkgs.yt-dlp
             pkgs.mpv
             pkgs.msmtp
@@ -185,6 +187,7 @@
           {
             homebrew = {
               enable = true;
+              onActivation.cleanup = "zap";
 
               taps = [
                 "cmacrae/formulae"
@@ -202,7 +205,10 @@
                 "berkeley-db@5"
                 "libretls"
                 "cocoapods"
-                "emacs-plus@31"
+                {
+                  name = "emacs-plus@31";
+                  link = true;
+                }
                 "docker-completion"
                 "Gtk-mac-integration"
                 "reattach-to-user-namespace"
