@@ -7,7 +7,9 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager";
     # TODO: add home manager
+
   };
 
   outputs =
@@ -15,6 +17,7 @@
       self,
       nix-darwin,
       nixpkgs,
+      home-manager,
       ...
     }:
 
@@ -24,7 +27,10 @@
         {
           # List packages installed in system profile. To search by name, run:
           # $ nix-env -qaP | grep wget
+
+          # Enable non-opensource packages, discord and whatnot
           nixpkgs.config.allowUnfree = true;
+
           # TODO: please move this into subfiles, organize by dependencies or type when possible
           environment.systemPackages = [
             pkgs.nixfmt-rfc-style
@@ -154,9 +160,11 @@
             pkgs.zlib
             pkgs.zoxide
             pkgs.zsh
+            pkgs.pyright
 
           ];
 
+          # Enable the flake on this system
           nix.settings.experimental-features = "nix-command flakes";
           nix.enable = false;
           system.primaryUser = "petergrosskurth";
@@ -171,13 +179,14 @@
           # Set Git commit hash for darwin-version.
           system.configurationRevision = self.rev or self.dirtyRev or null;
 
+          # Stable or unstable ?
           system.stateVersion = 6;
           nixpkgs.hostPlatform = "aarch64-darwin";
         };
     in
     {
       # Build darwin flake using:
-      # $ sudo darwin-rebuild build --flake .#Peters-Mac
+      # $ sudo darwin-rebuild build --flake ~/.dotfiles-nix/.#Acerola
       darwinConfigurations."Acerola" = nix-darwin.lib.darwinSystem {
 
         modules = [
@@ -187,7 +196,8 @@
           {
             homebrew = {
               enable = true;
-              onActivation.cleanup = "zap";
+              # Cleanup any non-declarative packages.
+              # onActivation.cleanup = "zap";
 
               taps = [
                 "cmacrae/formulae"
