@@ -8,6 +8,7 @@
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # TODO: add home manager
 
   };
@@ -190,9 +191,11 @@
       darwinConfigurations."Acerola" = nix-darwin.lib.darwinSystem {
 
         modules = [
+          home-manager.darwinModules.home-manager
           configuration
           ./darwin/yabai.nix
           ./darwin/skhd.nix
+
           {
             homebrew = {
               enable = true;
@@ -233,6 +236,11 @@
               casks = [
                 "colemak-dh"
               ];
+            };
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.petergrosskurth = import ./home.nix;
             };
           }
         ];
