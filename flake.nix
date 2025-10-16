@@ -167,13 +167,13 @@
           programs.fish.enable = true;
           users.users.petergrosskurth = {
             # TODO: this is not setting my login shell, need to fix that
+            home = "/Users/petergrosskurth";
             shell = pkgs.fish;
           };
 
           # Set Git commit hash for darwin-version.
           system.configurationRevision = self.rev or self.dirtyRev or null;
 
-          builtins.readFile = ./home.nix;
           # Stable or unstable ?
           system.stateVersion = 6;
           nixpkgs.hostPlatform = "aarch64-darwin";
