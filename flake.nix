@@ -28,11 +28,7 @@
         {
           # List packages installed in system profile. To search by name, run:
           # $ nix-env -qaP | grep wget
-
-          # Enable non-opensource packages, discord and whatnot
           nixpkgs.config.allowUnfree = true;
-
-          # TODO: please move this into subfiles, organize by dependencies or type when possible
           environment.systemPackages = [
             pkgs.nixfmt-rfc-style
             pkgs.nixd
@@ -164,12 +160,9 @@
             pkgs.pyright
 
           ];
-
-          # Enable the flake on this system
           nix.settings.experimental-features = "nix-command flakes";
           nix.enable = false;
           system.primaryUser = "petergrosskurth";
-
           security.pam.services.sudo_local.touchIdAuth = true;
           programs.fish.enable = true;
           users.users.petergrosskurth = {
@@ -180,6 +173,7 @@
           # Set Git commit hash for darwin-version.
           system.configurationRevision = self.rev or self.dirtyRev or null;
 
+          builtins.readFile = ./home.nix;
           # Stable or unstable ?
           system.stateVersion = 6;
           nixpkgs.hostPlatform = "aarch64-darwin";
@@ -191,10 +185,15 @@
       darwinConfigurations."Acerola" = nix-darwin.lib.darwinSystem {
 
         modules = [
-          home-manager.darwinModules.home-manager
           configuration
           ./darwin/yabai.nix
           ./darwin/skhd.nix
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.petergrosskurth = import ./home.nix;
+          }
 
           {
             homebrew = {
@@ -236,11 +235,6 @@
               casks = [
                 "colemak-dh"
               ];
-            };
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.petergrosskurth = import ./home.nix;
             };
           }
         ];
