@@ -32,14 +32,12 @@
           environment.systemPackages = [
             pkgs.nixfmt-rfc-style
             pkgs.nixd
-            pkgs.kitty
             pkgs.libpng
             pkgs.glib
             pkgs.cairo
             pkgs.harfbuzz
             pkgs.pango
             pkgs.librsvg
-            pkgs.adwaita-icon-theme
             pkgs.cacert
             pkgs.openssl
             pkgs.libevent
@@ -90,7 +88,6 @@
             pkgs.ffmpeg
             pkgs.ffmpegthumbnailer
             pkgs.figlet
-            pkgs.fish
             pkgs.fzf
             pkgs.gawk
             pkgs.gd
@@ -99,14 +96,12 @@
             pkgs.gnused
             pkgs.gnutar
             pkgs.go
-            pkgs.graphviz
             pkgs.gnugrep
             pkgs.gsettings-desktop-schemas
             pkgs.gtk3
             pkgs.htop
             pkgs.libheif
             pkgs.python313
-            pkgs.imagemagick
             pkgs.ispell
             pkgs.isync
             pkgs.lazygit
@@ -118,46 +113,21 @@
             pkgs.lua
             pkgs.luarocks
             pkgs.nodejs
-            pkgs.mermaid-cli
             pkgs.meson
-            # pkgs.vapoursynth
             pkgs.libtool
-            pkgs.yt-dlp
-            pkgs.mpv
             pkgs.msmtp
-            pkgs.mu
-            pkgs.neomutt
-            pkgs.tree-sitter
-            pkgs.neovim
             pkgs.jdk
-            pkgs.pandoc
-            pkgs.tree
-            pkgs.pass
-            pkgs.pfetch
-            pkgs.eza
             pkgs.php
             pkgs.poppler
             pkgs.python313Packages.pygments
-            pkgs.ripgrep
             pkgs.rustup
-            pkgs.ghostty-bin
-            pkgs.p7zip
             pkgs.slides
             pkgs.sphinx
-            pkgs.starship
-            pkgs.stow
             pkgs.swiftformat
-            # pkgs.syncthing
-            pkgs.texlab
-            pkgs.texliveFull
-            pkgs.tmux
             pkgs.virtualenv
             pkgs.wget
             pkgs.wimlib
             pkgs.zlib
-            pkgs.zoxide
-            pkgs.zsh
-            pkgs.pyright
 
           ];
           nix.settings.experimental-features = "nix-command flakes";
