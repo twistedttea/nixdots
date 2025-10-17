@@ -7,7 +7,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager";
+    Home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     # TODO: add home manager
 
@@ -29,110 +29,27 @@
           # List packages installed in system profile. To search by name, run:
           # $ nix-env -qaP | grep wget
           nixpkgs.config.allowUnfree = true;
-          environment.systemPackages = [
-            pkgs.nixfmt-rfc-style
-            pkgs.nixd
-            pkgs.libpng
-            pkgs.glib
-            pkgs.cairo
-            pkgs.harfbuzz
-            pkgs.pango
-            pkgs.librsvg
-            pkgs.cacert
-            pkgs.openssl
-            pkgs.libevent
-            pkgs.nghttp2
-            pkgs.gnutls
-            pkgs.gnupg
-            pkgs.gpgme
-            pkgs.gmime
-            pkgs.notmuch
-            pkgs.aerc
-            pkgs.antigen
-            pkgs.glibtool
-            pkgs.brotli
-            pkgs.libavif
-            pkgs.apr
-            pkgs.aprutil
-            pkgs.aria2
-            pkgs.aribb24
-            pkgs.dbus
-            pkgs.at-spi2-core
-            pkgs.autoconf
-            pkgs.automake
-            pkgs.ncurses
-            pkgs.bat
-            pkgs.db
-            pkgs.biber
-            pkgs.c-ares
-            pkgs.libretls
-            pkgs.gcc
-            pkgs.pmix
-            pkgs.openmpi
-            pkgs.python313Packages.certifi
-            pkgs.cjson
-            pkgs.clisp
-            pkgs.cmake
-            pkgs.cocoapods
-            pkgs.coreutils
-            pkgs.curl
-            pkgs.dav1d
-            pkgs.desktop-file-utils
-            pkgs.docker
-            pkgs.docker-compose
-            pkgs.dotnet-sdk
-            pkgs.eza
-            pkgs.fd
-            pkgs.libass
-            pkgs.tesseract
-            pkgs.ffmpeg
-            pkgs.ffmpegthumbnailer
-            pkgs.figlet
-            pkgs.fzf
-            pkgs.gawk
-            pkgs.gd
-            pkgs.gh
-            pkgs.git
-            pkgs.gnused
-            pkgs.gnutar
-            pkgs.go
-            pkgs.gnugrep
-            pkgs.gsettings-desktop-schemas
-            pkgs.gtk3
-            pkgs.htop
-            pkgs.libheif
-            pkgs.python313
-            pkgs.ispell
-            pkgs.isync
-            pkgs.lazygit
-            pkgs.lf
-            pkgs.libgccjit
-            pkgs.postgresql
-            pkgs.pkg-config
-            pkgs.librsync
-            pkgs.lua
-            pkgs.luarocks
-            pkgs.nodejs
-            pkgs.meson
-            pkgs.libtool
-            pkgs.msmtp
-            pkgs.jdk
-            pkgs.php
-            pkgs.poppler
-            pkgs.python313Packages.pygments
-            pkgs.rustup
-            pkgs.slides
-            pkgs.sphinx
-            pkgs.swiftformat
-            pkgs.virtualenv
-            pkgs.wget
-            pkgs.wimlib
-            pkgs.zlib
+          nixpkgs.config.environment.systemPackages = with pkgs; [
+            nixfmt-rfc-style
+            nixd
+            gcc
+            cmake
+            git
+            curl
+            wget
+            fzf
+            coreutilS
+            automake
+            libtool
+            pkg-config
+            mesa
+            autoconf
+            automake
 
           ];
           nix.settings.experimental-features = "nix-command flakes";
           nix.enable = false;
-          system.primaryUser = "petergrosskurth";
+          nix.System.primaryUser = "petergrosskurth";
           security.pam.services.sudo_local.touchIdAuth = true;
           programs.fish.enable = true;
           users.users.petergrosskurth = {
@@ -150,64 +67,68 @@
         };
     in
     {
+
       # Build darwin flake using:
       # $ sudo darwin-rebuild build --flake ~/.dotfiles-nix/.#Acerola
-      darwinConfigurations."Acerola" = nix-darwin.lib.darwinSystem {
+      darwinConfigurations = {
+        "Acerola" = nix-darwin.lib.darwinSystem {
 
-        modules = [
-          configuration
-          ./darwin/yabai.nix
-          ./darwin/skhd.nix
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.petergrosskurth = import ./home.nix;
-          }
+          modules = [
+            configuration
+            ./darwin/yabai.nix
+            ./darwin/skhd.nix
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.petergrosskurth = import ./home.nix;
+            }
 
-          {
-            homebrew = {
-              enable = true;
-              # Cleanup any non-declarative packages.
-              # onActivation.cleanup = "zap";
+            {
 
-              taps = [
-                "cmacrae/formulae"
-                "felixkratz/formulae"
-                "homebrew/autoupdate"
-                "koekeishiya/formulae"
-                "nikitabobko/tap"
-                "d12frosted/emacs-plus"
-                "romkatv/powerlevel10k"
-                "zegervdv/zathura"
+              homebrew = {
+                enable = true;
+                # Cleanup any non-declarative packages.
+                # onActivation.cleanup = "zap";
 
-              ];
+                taps = [
+                  "cmacrae/formulae"
+                  "felixkratz/formulae"
+                  "homebrew/autoupdate"
+                  "koekeishiya/formulae"
+                  "nikitabobko/tap"
+                  "d12frosted/emacs-plus"
+                  "romkatv/powerlevel10k"
+                  "zegervdv/zathura"
 
-              brews = [
-                "berkeley-db@5"
-                "libretls"
-                "cocoapods"
-                {
-                  name = "emacs-plus@31";
-                  link = true;
-                }
-                "docker-completion"
-                "Gtk-mac-integration"
-                "reattach-to-user-namespace"
-                "terminal-notifier"
-                "xdg-ninja"
-                {
-                  name = "syncthing";
-                  start_service = true;
-                }
-              ];
+                ];
 
-              casks = [
-                "colemak-dh"
-              ];
-            };
-          }
-        ];
+                brews = [
+                  "berkeley-db@5"
+                  "libretls"
+                  "cocoapods"
+                  {
+                    name = "emacs-plus@31";
+                    link = true;
+                  }
+                  "docker-completion"
+                  "Gtk-mac-integration"
+                  "reattach-to-user-namespace"
+                  "terminal-notifier"
+                  "xdg-ninja"
+                  {
+                    name = "syncthing";
+                    start_service = true;
+                  }
+                ];
+
+                casks = [
+                  "colemak-dh"
+                ];
+              };
+            }
+          ];
+        };
       };
     };
 }

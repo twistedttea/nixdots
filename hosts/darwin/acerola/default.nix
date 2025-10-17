@@ -5,70 +5,104 @@
 }:
 let
 in
-{
+
   imports = [
     #
-    # ========== Hardware ==========
+    # ========== hardware ==========
     #
-    ./hardware-configuration.nix
-    #inputs.hardware.nixosModules.common-cpu-amd
-    #inputs.hardware.nixosModules.common-cpu-intel
-    #inputs.hardware.nixosModules.common-gpu-nvidia
-    #inputs.hardware.nixosModules.common-gpu-intel
-    #inputs.hardware.nixosModules.common-pc-ssd
+    #
+    #./hardware-configuration.nix
+    #inputs.hardware.nixosmodules.common-cpu-amd
+    #inputs.hardware.nixosmodules.common-cpu-intel
+    #inputs.hardware.nixosmodules.common-gpu-nvidia
+    #inputs.hardware.nixosmodules.common-gpu-intel
+    #inputs.hardware.nixosmodules.common-pc-ssd
 
     #
-    # ========== Disk Layout ==========
+    # ========== disk layout ==========
     #
-    #inputs.disko.nixosModules.disko
+    #inputs.disko.nixosmodules.disko
 
     #
-    # ========== Misc Inputs ==========
+    # ========== misc inputs ==========
     #
 
-    (map lib.custom.relativeToRoot [
+    (map lib.custom.relativetoroot [
       #
-      # ========== Required Configs ==========
+      # ========== required configs ==========
       #
       "hosts/common/core"
 
       #
-      # ========== Non-Primary Users to Create ==========
+      # ========== non-primary users to create ==========
       #
 
       #
-      # ========== Optional Configs ==========
+      # ========== optional configs ==========
       #
     ])
   ];
 
   #
-  # ========== Host Specification ==========
+  # ========== host specification ==========
   #
 
+            configuration
+            # ./darwin/yabai.nix
+            # ./darwin/skhd.nix
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.petergrosskurth = import ./home.nix;
+            }
+
+              homebrew = {
+                enable = true;
+                # Cleanup any non-declarative packages.
+                # onActivation.cleanup = "zap";
+
+                taps = [
+                  "cmacrae/formulae"
+                  "felixkratz/formulae"
+                  "homebrew/autoupdate"
+                  "koekeishiya/formulae"
+                  "nikitabobko/tap"
+                  "d12frosted/emacs-plus"
+                  "romkatv/powerlevel10k"
+                  "zegervdv/zathura"
+
+                ];
+
+                brews = [
+                  "berkeley-db@5"
+                  "libretls"
+                  "cocoapods"
+                  {
+                    name = "emacs-plus@31";
+                    link = true;
+                  }
+                  "docker-completion"
+                  "Gtk-mac-integration"
+                  "reattach-to-user-namespace"
+                  "terminal-notifier"
+                  "xdg-ninja"
+                  {
+                    name = "syncthing";
+                    start_service = true;
+                  }
+                ];
+
+                casks = [
+                  "colemak-dh"
+                ];
+              };
   # hostSpec = {
   #   hostName = "foo";
   #   useYubikey = lib.mkForce true;
   #   scaling = lib.mkForce "1";
   # };
 
-  # networking = {
-  #   networkmanager.enable = true;
-  #   enableIPv6 = false;
-  # };
-
-  # boot.loader = {
-  #   systemd-boot = {
-  #     enable = true;
-  #   };
-  #   efi.canTouchEfiVariables = true;
-  #   timeout = 3;
-  # };
-
-  # boot.initrd = {
-  #   systemd.enable = true;
-  # };
-
   #https://wiki.nixos.org/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
 }
